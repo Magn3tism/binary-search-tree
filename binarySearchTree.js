@@ -106,26 +106,38 @@ class BinarySearchTree {
     }
   }
 
-  // get levelOrder() {
-  //   let queue = [];
-  //   this.#appendToqueue(this.#root, queue);
+  levelOrder(cb = "") {
+    if (this.#root === null) return;
 
-  //   queue.forEach((node) => console.log(node.data));
-  // }
+    let queue = [];
+    let returnArray = [];
 
-  // #appendToqueue(node, queue) {
-  //   if (node === null) return queue;
-  //   queue.push(node);
+    queue.push(this.#root);
 
-  //   this.#appendToqueue(node.left, queue);
-  //   this.#appendToqueue(node.right, queue);
-  // }
+    while (queue.length) {
+      let current = queue[0];
+
+      if (cb) cb(current);
+      else returnArray.push(current);
+
+      if (current.left !== null) queue.push(current.left);
+      if (current.right !== null) queue.push(current.right);
+      queue.shift();
+    }
+
+    if (!cb) return returnArray;
+  }
+
+  height(node = this.#root) {
+    if (node == null) return 0;
+
+    let lheight = this.height(node.left);
+    let rheight = this.height(node.right);
+
+    if (lheight > rheight) return lheight + 1;
+    else return rheight + 1;
+  }
 }
 
 let bin = new BinarySearchTree([1, 3, 4, 5, 7, 8, 9, 23, 67, 324, 6345]);
-bin.viewTree;
-
-console.log("\n\n\n");
-
-bin.delete(8);
 bin.viewTree;
