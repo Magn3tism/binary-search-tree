@@ -63,10 +63,26 @@ class BinarySearchTree {
       }
     }
   }
+
+  delete(value, node = this.#root) {
+    if (node === null) return node;
+
+    if (value < node.data) node.left = this.delete(value, node.left);
+    else if (value > node.data) node.right = this.delete(value, node.right);
+    else {
+      if (node.right === null && node.left === null) return null;
+      else if (node.right === null) return node.left;
+      else if (node.left === null) return node.right;
+    }
+
+    return node;
+  }
 }
 
 let bin = new BinarySearchTree([1, 3, 4, 5, 7, 8, 9, 23, 67, 324, 6345]);
 bin.viewTree;
 
-bin.insert(6);
+console.log("\n\n\n");
+
+bin.delete(5);
 bin.viewTree;
