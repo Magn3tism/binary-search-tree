@@ -47,7 +47,6 @@ class BinarySearchTree {
     let reqdNode = this.#root;
 
     while (1) {
-      console.log(reqdNode);
       if (newNode.data > reqdNode.data) {
         if (reqdNode.right === null) {
           reqdNode.right = newNode;
@@ -73,10 +72,54 @@ class BinarySearchTree {
       if (node.right === null && node.left === null) return null;
       else if (node.right === null) return node.left;
       else if (node.left === null) return node.right;
+      else {
+        node.data = this.#inorderSuccessor(node.right).data;
+
+        node.right = this.delete(node.data, node.right);
+      }
     }
 
     return node;
   }
+
+  #inorderSuccessor(node) {
+    if (node.left === null) {
+      return node;
+    }
+
+    return this.#inorderSuccessor(node.left);
+  }
+
+  find(value) {
+    let node = this.#root;
+
+    while (1) {
+      if (value === node.data) {
+        return node;
+      } else if (node.left === null && node.right === null) {
+        return `${value} not in Tree`;
+      } else if (value < node.data) {
+        node = node.left;
+      } else {
+        node = node.right;
+      }
+    }
+  }
+
+  // get levelOrder() {
+  //   let queue = [];
+  //   this.#appendToqueue(this.#root, queue);
+
+  //   queue.forEach((node) => console.log(node.data));
+  // }
+
+  // #appendToqueue(node, queue) {
+  //   if (node === null) return queue;
+  //   queue.push(node);
+
+  //   this.#appendToqueue(node.left, queue);
+  //   this.#appendToqueue(node.right, queue);
+  // }
 }
 
 let bin = new BinarySearchTree([1, 3, 4, 5, 7, 8, 9, 23, 67, 324, 6345]);
@@ -84,5 +127,5 @@ bin.viewTree;
 
 console.log("\n\n\n");
 
-bin.delete(5);
+bin.delete(8);
 bin.viewTree;
