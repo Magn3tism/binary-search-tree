@@ -14,5 +14,3 @@ An implementation of a binary search tree in JavaScript.
 * `isBalanced()` - returns true/false based on whether or not the tree is balanced
 * `rebalance()` - rebalances the tree
 * `viewTree` - prints the tree in reader friendly format
-
-Also included is a small script that tests most of the tree's functionality.
