@@ -118,7 +118,7 @@ class BinarySearchTree {
       let current = queue[0];
 
       if (cb) cb(current);
-      else returnArray.push(current);
+      else returnArray.push(current.data);
 
       if (current.left !== null) queue.push(current.left);
       if (current.right !== null) queue.push(current.right);
@@ -223,30 +223,3 @@ class BinarySearchTree {
     this.#root = this.#buildTree(newArray, 0, newArray.length - 1);
   }
 }
-
-let bin = new BinarySearchTree([1, 3, 4, 5, 8, 6, 7, 8, 23, 324, 6345]);
-
-bin.viewTree;
-console.log(bin.isBalanced());
-console.log(bin.inOrder());
-
-bin.insert(32);
-bin.insert(52);
-bin.insert(9);
-bin.insert(29);
-bin.insert(10);
-bin.insert(34);
-bin.insert(67);
-bin.insert(88);
-bin.insert(83);
-bin.insert(98);
-bin.insert(100);
-bin.insert(1009);
-
-bin.viewTree;
-console.log(bin.isBalanced());
-
-bin.rebalance();
-
-bin.viewTree;
-console.log(bin.isBalanced());
