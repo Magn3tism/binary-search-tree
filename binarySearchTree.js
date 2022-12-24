@@ -128,6 +128,71 @@ class BinarySearchTree {
     if (!cb) return returnArray;
   }
 
+  preOrder(cb = "") {
+    if (this.#root === null) return;
+
+    let queue = [];
+    this.#preOrderTraversel(this.#root, queue);
+    if (cb) {
+      queue.forEach((node) => cb(node));
+    } else {
+      queue = queue.map((node) => node.data);
+      return queue;
+    }
+  }
+
+  #preOrderTraversel(node, queue) {
+    if (node === null) return node;
+
+    queue.push(node);
+    this.#preOrderTraversel(node.left, queue);
+    this.#preOrderTraversel(node.right, queue);
+
+    return queue;
+  }
+
+  inOrder(cb = "") {
+    let queue = [];
+
+    this.#inOrderTraversel(this.#root, queue);
+
+    if (cb) {
+      queue.forEach((node) => cb(node));
+    } else {
+      queue = queue.map((node) => node.data);
+      return queue;
+    }
+  }
+
+  #inOrderTraversel(node, queue) {
+    if (node === null) return;
+
+    this.#inOrderTraversel(node.left, queue);
+    queue.push(node);
+    this.#inOrderTraversel(node.right, queue);
+  }
+
+  postOrder(cb = "") {
+    let queue = [];
+
+    this.#postOrderTraversel(this.#root, queue);
+
+    if (cb) {
+      queue.forEach((node) => cb(node));
+    } else {
+      queue = queue.map((node) => node.data);
+      return queue;
+    }
+  }
+
+  #postOrderTraversel(node, queue) {
+    if (node === null) return;
+
+    this.#postOrderTraversel(node.left, queue);
+    this.#postOrderTraversel(node.right, queue);
+    queue.push(node);
+  }
+
   height(node = this.#root) {
     if (node == null) return 0;
 
@@ -141,3 +206,8 @@ class BinarySearchTree {
 
 let bin = new BinarySearchTree([1, 3, 4, 5, 7, 8, 9, 23, 67, 324, 6345]);
 bin.viewTree;
+
+// bin.preOrder((node) => {
+//   console.log(node.data - 2);
+// });
+console.log(bin.postOrder());
